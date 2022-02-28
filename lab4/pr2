@@ -1,0 +1,70 @@
+i=0
+while test $i -ne 5
+do
+clear
+echo 'Меню'
+echo '1.Информация'
+echo '2.Значение функции'
+echo '3.Удаление файлов заданного расширения в заданной папке'
+echo '4. Разработать пакетный файл для установки даты и времени (параметры – в командной строке)'
+echo '5.Выход'
+echo 'Выберите пункт меню'
+read i
+if test $i -eq 1 
+then 
+        echo 'Автор: '
+        echo 'Король Василий'
+        echo 'Группа ИТП-11'
+        echo 'О работе: '
+        echo 'Этот сценарий результат лабораторной работы 4'
+elif test $i -eq 2
+then
+        echo 'Введите № компьютера'
+        read nk
+        echo 'Введите № по журналу'
+        read nv
+        echo 'Введите Ваш возраст'
+        read v
+        echo 'Значение функции x=(№Компьютера + №По журналу)*Возраст равно'
+        x=`expr $nk \* $v + $nv \* $v`
+        echo x=$x
+elif test $i -eq 3
+then
+     echo 'Введите адрес папки'
+     read fold
+     if [ -d $fold ] 
+        then
+        echo 'Введите расширение файлов'
+        read filed
+        m= 0
+        cd $fold
+     	for l  in *
+        do
+                find $fold -name "*.$filed" -type f -delete
+                m=`expr $m + 1 `
+        done
+        echo 'Удаление файлов завершено'
+     else echo 'Такой папки не существует'
+        fi
+elif test $i -eq 4
+then
+	echo 'Введите год '
+        read newY
+        echo 'Введите месяц '
+        read newm
+        echo 'Введите день '
+        read newd
+        echo 'Введите час '
+        read newH
+        echo 'Введите минуту '
+        read newM
+        echo 'Введите секунду '
+        read newS
+        echo $(sudo date --set="$newY$newm$newd $newH:$newM:$newS") > dateFile
+        echo 'Дата и врямя были изменены'
+elif test $i -eq 5	 
+then 
+	echo 'Завершение работы'
+	fi
+read key
+done
